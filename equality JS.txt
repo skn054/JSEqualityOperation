@@ -1,0 +1,47 @@
+
+number, string, boolean, object, NaN, null, undefined
+
+
+number , string - string is converted to Number and agin comparison is done(from rule 1). 
+Example (12 == "12") -> 12 == ToNumber("12") -> 12 == 12 -> Type(x) is same as Type(y) (rule 1 of abstract equality) then 12 === 12(rule 2.c of strict ) -> return true
+
+nnumber , bolean - boolean is converted to Number and again comparison is done (1 == false) -> 1 == 0 -> 1 === 0(rule 2.f) -> false
+
+number, object:
+const obj = {x: 10, valueOf(){ return "1"}}
+console.log(1 == obj) -> 1 == ToPrimitive(obj,hint = Number) -> 1 == '[object Object]' -> 1 == ToNumber('[object Object]') -> 1 == NaN -> 1 === NaN(rule 2.a strict) -> false 
+
+number , NaN - > 1 == NaN -> 1 === NaN -> flase
+
+number, null -> 
+
+number , undefined -> 1 == undefined -> All 9. rules of Abstract equality fails and we get false.
+------------------------------------------------------------------------------------------------------------------------------------------------------
+string , boolean -> "1" == false -> ToNumber("1") == false -> 1 == false -> 1 == ToNumber(false) -> 1 == 0 -> 1 === 0 -> false.
+
+string , object :
+const obj = {x:10}
+console.log("123" == obj) -> ToNumber("123") == obj -> 123 == obj -> 123 == ToPrimitive(obj, hint= Number) -> 123 == '[object Object]' -> 123 == ToNumber('[object Object]') -> 123 == NaN -> 123 === NaN -> false.
+ 
+
+string , NaN: "123" == NaN -> 123 == NaN -> 123 === NaN -> flase
+
+string, null : 
+
+string , undefined : 
+"123" == undefined -> ToNumber("123") == undefined -> 123 == undefined. According to Abstract equality if type(x) != type(y) thenn coercion happens only if one of the operand is either a string/boolean/object. 
+As either of x(123) or y(undefined) matches above types no coercion happens and non of the rules apply hence we get false.
+
+boolean, object
+boolean, NaN
+boolean, null
+boolean, undefined
+
+object , NaN
+object, null
+object , undefined
+
+NaN , null
+NaN , undefined
+
+null, undefined
